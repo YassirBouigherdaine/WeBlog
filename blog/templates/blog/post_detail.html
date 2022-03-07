@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class=" mt-3 p-4 ">
+    <div class="card mb-3 mt-2 shadow border p-4">
+
+        <div>
+            <img class="rounded-circle ms-3 mt-2" width="100px" height="100px" src="{{post.author.profile.image.url}}">
+        </div>
+    
+        <div class="card-body col-md-10 ms-3">
+            <p class="border-bottom">
+                <a class="fs-5 text-primary mx-1 text-decoration-none" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                <span class="card-subtitle m-2 text-muted">{{ post.date_posted | date:"F d, Y" }}</span></p> 
+                <h3 class="card-title">{{ post.title }}</h3>
+
+                <div class="card-text fw-light border ">
+                    <p class="p-2">{{ post.content }}</p>
+                  </div>
+        </div>
+        {% if post.author == user %}
+            <div class="mx-auto">
+                <a class="btn btn-primary m-4" href="{% url 'update-post' post.id %}">Update Post</a>
+                <a  class="btn btn-danger m-4" href="{% url 'delete-post' post.id %}">Delete Post</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+    
+{% endblock content %}
